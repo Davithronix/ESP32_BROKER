@@ -7,7 +7,6 @@
 #include <PubSubClient.h>
 #include <Wire.h>
 #include <DHT.h>
-//#include <Adafruit_BME280.h>
 #include <Adafruit_Sensor.h>
 
 // Replace the next variables with your SSID/Password combination
@@ -23,13 +22,6 @@ PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
 int value = 0;
-
-//uncomment the following lines if you're using SPI
-/*#include <SPI.h>
-#define BME_SCK 18
-#define BME_MISO 19
-#define BME_MOSI 23
-#define BME_CS 5*/
 
 #define MQTT_PORT 1883
 
@@ -48,12 +40,6 @@ DHT dht(DHTPIN, DHTTYPE);
 float temp;
 float hum;
 
-//Adafruit_BME280 bme; // I2C
-//Adafruit_BME280 bme(BME_CS); // hardware SPI
-//Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
-//float temperature = 0;
-//float humidity = 0;
-
 // LED Pin
 const int ledPin = 2;
 
@@ -61,7 +47,7 @@ void setup() {
   Serial.begin(115200);
   // default settings
   // (you can also pass in a Wire library object like &Wire2)
-  //status = bme.begin();  
+    
   dht.begin();
     
   setup_wifi();
@@ -172,3 +158,6 @@ void loop() {
     client.publish("esp32/humidity", humString);
   }
 }
+
+//After Node-RED application is ready. To access Node-RED UI and see application looks, access any browser in your local network and type:
+// http://Your_RPi_IP_address:1880/ui
